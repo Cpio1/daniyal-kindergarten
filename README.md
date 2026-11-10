@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# «Даниял» балабақшасы — сайт
 
-## Getting Started
+Лендинг детского сада «Даниял» (ТОО «Маткасым»). Next.js 16 (App Router) + TypeScript + Tailwind CSS 4.
+Языки: казахский (по умолчанию) и русский, переключение без перезагрузки. Сайт всегда в светлой теме.
 
-First, run the development server:
+## Запуск
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production-сборка
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Фотографии и логотип — `public/images`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Просто положите файлы в папку и пересоберите сайт (на Vercel — сделайте новый деплой).
+Если файла нет, сайт показывает аккуратную иллюстрацию вместо пустого места.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Файл | Где используется |
+|---|---|
+| `main-page.jpg` (`.webp/.png/.avif`) | Главное фото в Hero |
+| `main-page2.jpg` **или** `main-page2.mp4/.webm` | Фото/видео в блоке «О садике» |
+| `logo.png` (прозрачный фон) | Логотип в шапке и подвале (иначе — текстовое «Даниял») |
+| `image1.jpg`, `image2.jpg`, … | Галерея (по номеру, сначала 6 фото, остальные — по кнопке «Көбірек көрсету») |
 
-## Learn More
+Если `main-page2` нет, в блоке «О садике» показывается `image1`.
 
-To learn more about Next.js, take a look at the following resources:
+## Данные, которые нужно добавить позже — `lib/site.ts`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `documentsUrl` — ссылка на папку Google Drive с документами.
+- `coordinates` — точные координаты (широта/долгота) для встроенной карты 2GIS.
+- `twoGisUrl`, `twoGisFirmId` — ссылка/ID карточки сада в 2GIS (для метки на карте).
+- `GROUPS` — названия и возраст групп на двух языках.
+- `url` или переменная окружения `NEXT_PUBLIC_SITE_URL` — домен сайта (для SEO).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Пока координаты не указаны, кнопки маршрута (2GIS / Google / Яндекс) ищут сад по адресу.
 
-## Deploy on Vercel
+## Тексты и переводы
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Все тексты на двух языках — в `lib/i18n.ts`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Деплой на Vercel
+
+Импортируйте репозиторий на vercel.com — настройки по умолчанию подходят. Укажите `NEXT_PUBLIC_SITE_URL`.

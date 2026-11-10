@@ -1,26 +1,166 @@
 @import "tailwindcss";
 
+/*
+ * Тёмная тема полностью отключена: сайт всегда светлый.
+ * Вариант `dark:` переопределён так, что никогда не срабатывает.
+ */
+@custom-variant dark (&:where(.__never-dark, .__never-dark *));
+
+@theme {
+  --color-sky: #77c9f4;
+  --color-sky-light: #ddf3ff;
+  --color-blue: #2378b8;
+  --color-blue-dark: #1b6098;
+  --color-sun: #ffdb85;
+  --color-ink: #10324f;
+
+  --font-sans: var(--font-nunito), ui-rounded, system-ui, sans-serif;
+  --font-display: var(--font-nunito), ui-rounded, system-ui, sans-serif;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: only light;
+  /* Немного уменьшенный базовый масштаб интерфейса (~90%) */
+  font-size: 93.75%;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: only light;
+  scroll-behavior: smooth;
+  scroll-padding-top: 84px;
+  background: #ffffff;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  overflow-x: clip;
+  -webkit-tap-highlight-color: transparent;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-sun);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-blue);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+
+/* Фон Hero */
+.bg-hero {
+  background:
+    radial-gradient(1200px 500px at 85% -10%, #ffffffb3 0%, transparent 60%),
+    linear-gradient(180deg, #a9dcf8 0%, #c9ebfd 45%, #e6f6ff 100%);
+}
+
+/* Мягкая «капля» для главного фото */
+.blob-frame {
+  border-radius: 46% 54% 42% 58% / 52% 44% 56% 48%;
+  animation: blob 14s ease-in-out infinite;
+}
+@media (max-width: 639px) {
+  .blob-frame {
+    border-radius: 36px 36px 36px 120px;
+    animation: none;
+  }
+}
+
+/* Кнопки брендов (с хорошей контрастностью) */
+.btn-wa {
+  background: #1f9d55;
+  color: #fff;
+  box-shadow: 0 12px 24px -12px rgba(31, 157, 85, 0.9);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+.btn-wa:hover {
+  background: #188a49;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px -12px rgba(31, 157, 85, 0.95);
+}
+.btn-ig {
+  background: linear-gradient(45deg, #f58529, #dd2a7b 50%, #8134af);
+  color: #fff;
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+.btn-ig:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+/* Анимации */
+@keyframes float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -14px, 0); }
+}
+@keyframes drift {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(18px, -8px, 0); }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  50% { opacity: 0.45; transform: scale(0.75) rotate(20deg); }
+}
+@keyframes blob {
+  0%, 100% { border-radius: 46% 54% 42% 58% / 52% 44% 56% 48%; }
+  50% { border-radius: 55% 45% 56% 44% / 44% 56% 46% 54%; }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translate3d(0, 18px, 0); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes ping {
+  0% { transform: scale(1); opacity: 0.55; }
+  80%, 100% { transform: scale(1.6); opacity: 0; }
+}
+@keyframes pin-bounce {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+@keyframes lightbox-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes zoom-in {
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: none; }
+}
+
+.float-slow { animation: float 7s ease-in-out infinite; will-change: transform; }
+.float-slower { animation: drift 11s ease-in-out infinite; will-change: transform; }
+.twinkle { animation: twinkle 3.2s ease-in-out infinite; }
+.fade-up { animation: fade-up 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.wa-ping { animation: ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite; }
+.pin-bounce { animation: pin-bounce 2s ease-in-out infinite; }
+.lightbox-in { animation: lightbox-in 0.25s ease-out both; }
+.lightbox-img { animation: zoom-in 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+
+/* Появление при прокрутке */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 26px, 0);
+  transition: opacity 0.7s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.reveal.is-shown {
+  opacity: 1;
+  transform: none;
+}
+
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
 }
