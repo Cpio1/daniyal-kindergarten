@@ -28,8 +28,8 @@ html {
   color-scheme: only light;
   scroll-behavior: smooth;
   /*
-   * Единственный отступ для якорной прокрутки (на section[id] scroll-margin НЕ задаём,
-   * чтобы отступ не применялся дважды).
+   * Общий отступ для якорной прокрутки (общий scroll-margin на section[id] НЕ задаём,
+   * чтобы отступ не применялся дважды; исключения — #groups и #contacts ниже).
    * Значение = нижняя граница «компактной» шапки (после прокрутки: отступ 0.5rem + панель ≈3.5rem)
    * + 24px воздуха. Это запасное значение — ScrollManager.tsx уточняет его
    * по фактической высоте панели на текущем устройстве.
@@ -39,6 +39,24 @@ html {
   background: #ffffff;
   -webkit-text-size-adjust: 100%;
   overflow-x: clip;
+}
+
+/*
+ * Дополнительный отступ прокрутки только для «Топтар» и «Байланыс»:
+ * добавляется к общему scroll-padding-top (шапка + 24px), раздел встаёт ещё на 50px ниже.
+ * Значения для мобильной и десктопной версии задаются отдельно.
+ */
+:root {
+  --extra-scroll-offset: 50px; /* мобильные и планшеты */
+}
+@media (min-width: 1024px) {
+  :root {
+    --extra-scroll-offset: 50px; /* десктоп */
+  }
+}
+#groups,
+#contacts {
+  scroll-margin-top: var(--extra-scroll-offset);
 }
 
 body {
