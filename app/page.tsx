@@ -8,6 +8,7 @@ import { Documents } from "@/components/Documents";
 import { Contacts } from "@/components/Contacts";
 import { Footer } from "@/components/Footer";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
+import { ScrollManager } from "@/components/ScrollManager";
 import { getSiteMedia } from "@/lib/media";
 
 export default function Home() {
@@ -30,6 +31,7 @@ export default function Home() {
       </main>
       <Footer logo={media.logo} />
       <FloatingWhatsApp />
+      <ScrollManager />
     </>
   );
 }

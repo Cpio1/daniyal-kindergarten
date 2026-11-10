@@ -19,7 +19,7 @@ export function About({ media }: { media: Media | null }) {
   const { t } = useLang();
 
   return (
-    <section id="about" className="relative scroll-mt-20 bg-white py-14 sm:py-20 lg:py-24">
+    <section id="about" className="relative bg-white py-14 sm:py-20 lg:py-24">
       <div className="mx-auto grid max-w-[1240px] items-center gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16">
         {/* Фото */}
         <Reveal className="relative order-2 mx-auto w-full max-w-[520px] lg:order-1">

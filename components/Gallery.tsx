@@ -35,7 +35,7 @@ export function Gallery({ images }: { images: string[] }) {
   };
 
   return (
-    <section id="gallery" ref={sectionRef} className="relative scroll-mt-20 overflow-hidden bg-sky-light">
+    <section id="gallery" ref={sectionRef} className="relative overflow-hidden bg-sky-light">
       <Wave fill="#DDF3FF" className="bg-white" />
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <Cloud className="float-slow absolute right-[-30px] top-24 w-36 text-white" />

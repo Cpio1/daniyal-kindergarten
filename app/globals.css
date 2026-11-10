@@ -27,7 +27,15 @@
 html {
   color-scheme: only light;
   scroll-behavior: smooth;
-  scroll-padding-top: 84px;
+  /*
+   * Единственный отступ для якорной прокрутки (на section[id] scroll-margin НЕ задаём,
+   * чтобы отступ не применялся дважды).
+   * Значение = нижняя граница «компактной» шапки (после прокрутки: отступ 0.5rem + панель ≈3.5rem)
+   * + 24px воздуха. Это запасное значение — ScrollManager.tsx уточняет его
+   * по фактической высоте панели на текущем устройстве.
+   */
+  --scroll-offset: calc(4rem + 4px + 24px);
+  scroll-padding-top: var(--scroll-offset);
   background: #ffffff;
   -webkit-text-size-adjust: 100%;
   overflow-x: clip;

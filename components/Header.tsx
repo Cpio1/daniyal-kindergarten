@@ -116,6 +116,7 @@ export function Header({ logo }: { logo: string | null }) {
       >
         <div className="mx-auto max-w-[1240px] px-4 sm:px-6">
           <div
+            data-header-bar
             className={`flex items-center justify-between gap-3 rounded-full border px-3 py-2 pl-4 transition-all duration-300 sm:pl-5 ${
               scrolled
                 ? "border-white/80 bg-white/85 shadow-[0_10px_30px_-12px_rgba(35,120,184,.35)] backdrop-blur-xl"

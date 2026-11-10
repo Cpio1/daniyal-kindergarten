@@ -18,7 +18,7 @@ export function Food() {
   const { t } = useLang();
 
   return (
-    <section id="food" className="relative scroll-mt-20 overflow-hidden bg-white py-14 sm:py-20 lg:py-24">
+    <section id="food" className="relative overflow-hidden bg-white py-14 sm:py-20 lg:py-24">
       {/* Парящие продукты */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <Carrot className="float-slow absolute left-[3%] top-16 hidden w-14 rotate-[-18deg] md:block lg:w-16" />

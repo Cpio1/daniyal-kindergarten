@@ -11,7 +11,7 @@ export function Documents() {
   const hasLink = SITE.documentsUrl.length > 0;
 
   return (
-    <section id="documents" className="relative scroll-mt-20 bg-white py-14 sm:py-20">
+    <section id="documents" className="relative bg-white py-14 sm:py-20">
       <div className="mx-auto max-w-[1040px] px-4 sm:px-6">
         <Reveal>
           <div className="relative overflow-hidden rounded-[36px] bg-gradient-to-br from-blue via-[#2E8BCB] to-sky px-6 py-10 text-white shadow-[0_30px_60px_-30px_rgba(35,120,184,.8)] sm:rounded-[48px] sm:px-12 sm:py-14">

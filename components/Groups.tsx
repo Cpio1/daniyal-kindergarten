@@ -18,7 +18,7 @@ export function Groups() {
   const { t, lang } = useLang();
 
   return (
-    <section id="groups" className="relative scroll-mt-20 overflow-hidden bg-sky-light">
+    <section id="groups" className="relative overflow-hidden bg-sky-light">
       <Wave fill="#DDF3FF" className="bg-white" />
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <Cloud className="float-slower absolute -left-6 top-24 w-32 text-white" />
