@@ -18,7 +18,7 @@ export function Groups() {
   const { t, lang } = useLang();
 
   return (
-    <section id="groups" className="relative overflow-hidden bg-sky-light">
+    <section id="groups" data-scroll-fit className="relative overflow-hidden bg-sky-light">
       <Wave fill="#DDF3FF" className="bg-white" />
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <Cloud className="float-slower absolute -left-6 top-24 w-32 text-white" />
@@ -26,7 +26,7 @@ export function Groups() {
         <Star className="twinkle absolute right-[18%] top-28 h-5 w-5 text-sun" />
       </div>
 
-      <div className="relative mx-auto max-w-[1240px] px-4 py-12 sm:px-6 sm:py-16 lg:py-20">
+      <div data-scroll-content className="relative mx-auto max-w-[1240px] px-4 py-12 sm:px-6 sm:py-16 lg:py-20">
         <Reveal>
           <SectionTitle eyebrow={t.groups.eyebrow} title={t.groups.title} text={t.groups.text} />
         </Reveal>

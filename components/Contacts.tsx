@@ -20,14 +20,14 @@ export function Contacts() {
   ];
 
   return (
-    <section id="contacts" className="relative overflow-hidden bg-sky-light">
+    <section id="contacts" data-scroll-fit className="relative overflow-hidden bg-sky-light">
       <Wave fill="#DDF3FF" className="bg-white" />
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <Cloud className="float-slower absolute -left-8 top-28 w-32 text-white" />
         <Star className="twinkle absolute right-[10%] top-24 h-5 w-5 text-sun" />
       </div>
 
-      <div className="relative mx-auto max-w-[1240px] px-4 pb-14 pt-10 sm:px-6 sm:pb-20 sm:pt-14">
+      <div data-scroll-content className="relative mx-auto max-w-[1240px] px-4 pb-14 pt-10 sm:px-6 sm:pb-20 sm:pt-14">
         <Reveal>
           <SectionTitle eyebrow={t.contacts.eyebrow} title={t.contacts.title} text={t.contacts.text} />
         </Reveal>

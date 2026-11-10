@@ -5,6 +5,44 @@ import { useEffect } from "react";
 /** Свободное место между нижним краем шапки и началом раздела. */
 const GAP = 24;
 
+/** Минимальный зазор между шапкой/низом экрана и содержимым «вписываемого» раздела. */
+const FIT_MIN_GAP = 16;
+
+/** Позиция элемента от начала документа без учёта CSS-трансформаций (анимация появления). */
+function docTop(el: HTMLElement) {
+  let y = 0;
+  for (let n: HTMLElement | null = el; n; n = n.offsetParent as HTMLElement | null) y += n.offsetTop;
+  return y;
+}
+
+/**
+ * Для разделов с [data-scroll-fit] («Топтар», «Байланыс»): прокрутка, при которой
+ * всё содержимое раздела (от заголовка до последнего блока, без декоративных волн
+ * и внутренних отступов) целиком помещается на экране под шапкой — по центру
+ * свободной области. Если содержимое выше экрана (напр. «Байланыс» на телефоне),
+ * раздел выравнивается по заголовку: шапка + 24px.
+ */
+function fitScrollTop(section: HTMLElement): number | null {
+  const content = section.querySelector<HTMLElement>("[data-scroll-content]");
+  const first = content?.firstElementChild as HTMLElement | null;
+  const last = content?.lastElementChild as HTMLElement | null;
+  if (!first || !last) return null;
+
+  const root = document.documentElement;
+  const headerBottom = parseFloat(getComputedStyle(root).getPropertyValue("--scroll-offset")) - GAP;
+  if (!Number.isFinite(headerBottom)) return null;
+  const avail = window.innerHeight - headerBottom;
+  const top = docTop(first);
+  const height = docTop(last) + last.offsetHeight - top;
+
+  const target =
+    height + FIT_MIN_GAP * 2 <= avail
+      ? top - headerBottom - (avail - height) / 2 // целиком влезает — по центру
+      : top - headerBottom - GAP; // не влезает — заголовок сразу под шапкой
+  const max = root.scrollHeight - window.innerHeight;
+  return Math.max(0, Math.min(Math.round(target), max));
+}
+
 /**
  * Якорная навигация с учётом фиксированной шапки.
  *
@@ -44,7 +82,9 @@ export function ScrollManager() {
       }
       const el = document.getElementById(id);
       if (!el) return false;
-      el.scrollIntoView({ behavior, block: "start" });
+      const fitTop = el.hasAttribute("data-scroll-fit") ? fitScrollTop(el) : null;
+      if (fitTop !== null) window.scrollTo({ top: fitTop, behavior });
+      else el.scrollIntoView({ behavior, block: "start" });
       return true;
     };
 
